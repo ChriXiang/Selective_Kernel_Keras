@@ -58,8 +58,7 @@ def SK(inputs, channel, code, ratio=8):
     embedding = Add()([max_pool,avg_pool])
     embedding = Activation('softmax')(embedding)
     
-    res = K.ones_like(embedding)
-    res = Subtract()([res,embedding])
+    res = Lambda(lambda x:1-x)(embedding)
     
     if K.image_data_format() == "channels_first":
         embedding = Permute((3, 1, 2))(embedding)
