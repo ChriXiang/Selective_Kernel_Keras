@@ -11,9 +11,9 @@ def SK(inputs, channel, code, ratio=8):
                              use_bias=True,
                              bias_initializer='zeros')
     
-    conv1 =  Conv2D(channel, (5, 5), padding='same', name='image_conv_'+code+"_1")(inputs)
+    conv1 = Conv2D(channel, (5, 5), padding='same', name='SK_conv_'+code+"_1")(inputs)
     
-    conv2 = Conv2D(channel, (3, 3), padding='same', name='image_conv_'+code+"_3")(inputs)
+    conv2 = Conv2D(channel, (3, 3), padding='same', name='SK_conv_'+code+"_2")(inputs)
     
     conv_unite = Add()([conv1,conv2])
     
