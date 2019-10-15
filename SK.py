@@ -1,4 +1,20 @@
+from keras.layers import Subtract, multiply, dot, add, MaxPool1D,Layer,Input, Concatenate,Dense, Flatten, Dropout, GlobalMaxPooling2D,GlobalAveragePooling2D, ZeroPadding2D, Reshape, LeakyReLU, Lambda, BatchNormalization, Activation, Add, concatenate, Multiply, MaxPooling2D, Lambda
+from keras.layers.convolutional import Conv2D, Convolution2D, MaxPooling2D,UpSampling2D
+from keras.models import Sequential, Model, load_model
 
+import numpy as np
+
+import keras.backend as K
+from keras.preprocessing import image
+
+import tensorflow as tf
+
+'''
+inputs: input tensor
+channel: channel number of the result
+code: unique name for the layers
+return: SK processed tensor
+'''
 def SK(inputs, channel, code, ratio=8):
 
     shared_layer_one = Dense(channel//ratio,
@@ -42,7 +58,7 @@ def SK(inputs, channel, code, ratio=8):
     embedding = Add()([max_pool,avg_pool])
     embedding = Activation('softmax')(embedding)
     
-    res = K.ones(embedding._keras_shape)
+    res = K.ones_like(embedding)
     res = Subtract()([res,embedding])
     
     if K.image_data_format() == "channels_first":
