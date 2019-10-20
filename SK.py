@@ -57,7 +57,7 @@ def SK(inputs, channel, code, ratio=8):
     assert max_pool._keras_shape[1:] == (1,1,channel)
     
     embedding = Add()([max_pool,avg_pool])
-    embedding = Activation('softmax')(embedding)
+    embedding = Activation('sigmoid')(embedding)
     
     res = Lambda(lambda x:1-x)(embedding)
     
